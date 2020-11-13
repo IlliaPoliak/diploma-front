@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { connect } from 'react-redux'
 import { validateConfirmPassword, validateEmail, validateInput, validatePassword } from '../../utils/validation'
 import './Auth.css'
+import {registrate} from '../../store/authReducer'
 
 
 const RegisterForm = props => {
@@ -27,7 +29,7 @@ const RegisterForm = props => {
         } else if (!validateConfirmPassword(password, confirmPassword)) {
             console.log('err')
         } else {
-            console.log(name, email, password)
+            props.registrate(name, email, password)
         }
     }
 
@@ -48,4 +50,12 @@ const RegisterForm = props => {
     )
 }
 
-export default RegisterForm
+const mapStateToProps = state => ({
+
+})
+
+const mapDispatchToProps = {
+    registrate
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)

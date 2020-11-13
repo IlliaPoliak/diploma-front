@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Spinner = () => (
+export const Loader = () => (
     <svg className="lds-dash-ring" width="80px" height="80px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
         <g transform="rotate(15 50 50)">
             <animateTransform attributeName="transform" type="rotate" values="0 50 50;90 50 50" keyTimes="0;1" dur="0.5s" repeatCount="indefinite"></animateTransform>

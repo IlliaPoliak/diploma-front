@@ -1,11 +1,17 @@
+import Header from './Header'
+import Main from './Main'
+import Footer from './Footer'
+
 
 const Content = props => {
 
 
     return (
-        <div>
-            Auth
-        </div>
+        <>
+            <Header />
+            <Main />
+            <Footer />
+        </>
     )
 }
 

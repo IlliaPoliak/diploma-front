@@ -10,6 +10,10 @@ const Auth = props => {
 
     const changeForm = () => setVisibleLoginForm(!visibleLoginForm)
 
+    if (props.isAuth) {
+        return <Redirect to='/content' />
+	}
+
     return (
         <div className='auth-container'>
             {

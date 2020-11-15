@@ -17,9 +17,9 @@ export const appReducer = (state = initialState, action) => {
 }
 
 
-const INITIALIZE = 'authReducer/INITIALIZE'
-const ERROR = 'authReducer/ERROR'
-const MESSAGE = 'authReducer/MESSAGE'
+const INITIALIZE = 'appReducer/INITIALIZE'
+const ERROR = 'appReducer/ERROR'
+const MESSAGE = 'appReducer/MESSAGE'
 
 export const setInitialize = bool => ({ type: INITIALIZE, payload: bool })
 export const setError = err => ({ type: ERROR, payload: err })

@@ -17,6 +17,7 @@
     padding: 40px;
     background-color: #373737;
     box-shadow: 0 10px 16px 0 rgba(29, 29, 29, 0.3);
+    position: relative;
 }
 
 .auth-title{

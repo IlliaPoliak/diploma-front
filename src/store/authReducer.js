@@ -27,13 +27,13 @@ export const setLogout = () => ({ type: LOGOUT })
 
 export const checkAuth = () => async dispatch => {
     dispatch(setInitialize(false))
-    const token = getToken()
-    await dispatch(refreshToken(token)) 
+    await dispatch(refreshToken()) 
     dispatch(setInitialize(true))
 }
 
 export const refreshToken = token => async dispatch => {
     try {
+        const token = getToken()
         instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         let response = await instance.post('auth/refresh').then(res => res.data)
         if (response?.token) {
@@ -105,8 +105,7 @@ export const logout = () => async dispatch => {
 
 export const getUserInfo = () => async dispatch => {
     try {
-        const token = getToken()
-        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        instance.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`;
         let response = await instance.get('auth/me').then(res => res.data)
 
         if (response) {
@@ -195,14 +194,14 @@ export const getUserInfo = () => async dispatch => {
 //     }
 // }
 
-export const getToken = () => {
+export function getToken() {
     return localStorage.getItem('token')
 }
 
-export const setToken = (token) => {
+export function setToken(token) {
     localStorage.setItem('token', token)
 }
 
-export const removeToken = () => {
+export function removeToken() {
     localStorage.removeItem('token')
 }

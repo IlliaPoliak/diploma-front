@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './Auth.css'
+import { Redirect } from 'react-router-dom'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
@@ -12,7 +12,7 @@ const Auth = props => {
 
     if (props.isAuth) {
         return <Redirect to='/content' />
-	}
+	} 
 
     return (
         <div className='auth-container'>

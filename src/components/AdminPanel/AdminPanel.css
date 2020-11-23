@@ -29,6 +29,8 @@
     color: #fff;
     border: 1px dashed #fff;
     font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 .aside_link:hover{
     cursor: pointer;
@@ -65,6 +67,7 @@
 }
 .admin_table td, .admin_table th{
     padding: 4px 20px;
+    text-align: center;
 }
 .actions_wrapper{
     display: flex;
@@ -145,4 +148,11 @@
 .close_modal:hover{
     cursor: pointer;
     background-color: rgb(172, 5, 5);
+}
+
+.auth-input option{
+
+    padding: 10px;
+    border: none;
+    background-color: #f6f6f6;
 }

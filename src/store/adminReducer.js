@@ -1,4 +1,5 @@
 import { instance } from "../api/api";
+import { setError, setMessage } from "./appReducer";
 import { getToken } from "./authReducer";
 
 let initialState = {
@@ -52,17 +53,19 @@ export const deleteUserById = (id) => async dispatch => {
     }
 }
 
-export const updateUserById = (id, name, email) => async dispatch => {
+export const updateUserById = (id, name, email, role) => async dispatch => {
     try {
         instance.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`;
-        let response = await instance.put(`users/${id}?name=${name}&email=${email}`).then(res => res.data)
+        let response = await instance.put(`users/${id}?name=${name}&email=${email}&role=${role}`).then(res => res.data)
 
         if (response?.status === 'success') {
             dispatch(getUsersList())
+            dispatch(setMessage("Дані успішно змінено"))
             return true
         }
         return false
     } catch(e){
         console.log(e.response)
+        dispatch(setError("Сталася помилка"))
     }
 }

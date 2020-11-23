@@ -39,6 +39,7 @@ export const refreshToken = token => async dispatch => {
         if (response?.token) {
             setToken(response.token)
             dispatch(setIsAuth(true))
+            dispatch(getUserInfo())
             console.log('refresh token: ', response.token)
         } else {
             dispatch(setIsAuth(false))
@@ -61,6 +62,7 @@ export const registrate = (name, email, password) => async dispatch => {
         if (response?.token) {
             setToken(response.token)
             dispatch(setIsAuth(true))
+            dispatch(getUserInfo())
             console.log('register token', response.token)
             return true
         }
@@ -82,6 +84,7 @@ export const login = (email, password) => async dispatch => {
         if (response?.token) {
             setToken(response.token)
             dispatch(setIsAuth(true))
+            dispatch(getUserInfo())
             console.log('login token', response.token)
             return true
         }
@@ -93,11 +96,11 @@ export const login = (email, password) => async dispatch => {
 }
 
 export const logout = () => async dispatch => {
-    // try {
-    //     const token = getToken()
-    //     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    //     await instance.get('auth/logout').then(res => res.data)
-    // } catch (e) { console.log(e.response) }
+    try {
+        const token = getToken()
+        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        await instance.get('auth/logout').then(res => res.data)
+    } catch (e) { console.log(e.response) }
     
     removeToken()
     dispatch(setLogout())
@@ -110,7 +113,6 @@ export const getUserInfo = () => async dispatch => {
 
         if (response) {
             dispatch(setUserInfo(response))
-            console.log('user', response)
             return true
         }
         return false

@@ -13,11 +13,13 @@ const UsersList = props => {
     let [page, setPage] = useState(1)
     let [searchText, setSearchText] = useState('')
     let [isVisibleUpdateModal, setIsVisibleUpdateModal] = useState(false)
+    let [isVisibleDeleteModal, setIsVisibleDeleteModal] = useState(false)
 
     let [user, setUser] = useState({
         id: '',
         name: '',
-        email: ''
+        email: '',
+        role: 'user'
     })
 
     const loadAllUsers = async () => {
@@ -34,6 +36,7 @@ const UsersList = props => {
     const handleSearchText = async e => setSearchText(e.currentTarget.value)
     const changeUserName = async e => setUser({ ...user, name: e.currentTarget.value })
     const changeUserEmail = async e => setUser({ ...user, email: e.currentTarget.value })
+    const changeUserRole = async e => setUser({ ...user, role: e.currentTarget.value })
 
     const changeUserData = async () => {
         if (user.id){
@@ -42,9 +45,8 @@ const UsersList = props => {
             } else if (!validateEmail(user.email)) {
                 props.setError("Невірний формат email пошти")
             } else {
-                props.updateUserById(user.id, user.name, user.email)
+                props.updateUserById(user.id, user.name, user.email, user.role)
                 closeUpdateUserModal()
-                props.setMessage("Дані успішно змінено")
             }
         }
     }
@@ -55,6 +57,18 @@ const UsersList = props => {
     }
 
     const closeUpdateUserModal = () => setIsVisibleUpdateModal(false)
+
+
+    const confirmDeleting = async () => {
+        props.deleteUserById(user.id)
+        closeDeleteModal()
+    }
+    
+    const openDeleteModal = (user) => {
+        setUser(user)
+        setIsVisibleDeleteModal(true)
+    }
+    const closeDeleteModal = () => setIsVisibleDeleteModal(false)
 
     return (
         <>
@@ -75,6 +89,7 @@ const UsersList = props => {
                     <table className='admin_table'>
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Користувач</th>
                                 <th>Email</th>
                                 <th>Роль</th>
@@ -84,12 +99,13 @@ const UsersList = props => {
                         <tbody>
                             {props.users.map(user => (
                                 <tr key={user.id}>
+                                    <td>{user.id}</td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role || 'Користувач'}</td>
                                     <td className='actions_wrapper'>
                                         <AiOutlineEdit className='action' onClick={() => openUpdateUserModal(user)} />
-                                        <AiOutlineDelete className='action' onClick={() => props.deleteUserById(user.id)} />
+                                        <AiOutlineDelete className='action' onClick={() => openDeleteModal(user)} />
                                     </td>
                                 </tr>
                             ))}
@@ -109,9 +125,25 @@ const UsersList = props => {
                     <div className='auth-block'>
                         <span className='close_modal' onClick={closeUpdateUserModal}>&times;</span>
                         <h3 className='auth-title'>Редагування користувача</h3>
-                        <input type="text" value={user.name} onChange={changeUserName} className='auth-input' />
-                        <input type="email" value={user.email} onChange={changeUserEmail} className='auth-input' />
+                        <input type="text" value={user.name} onChange={changeUserName} className='auth-input' placeholder="Ім'я" />
+                        <select name="role" id="role" className='auth-input' value={user.role} onChange={changeUserRole}>
+                            <option value="user">Користувач</option>
+                            <option value="admin">Адміністратор</option>
+                        </select>
+                        <input type="email" value={user.email} onChange={changeUserEmail} className='auth-input' placeholder="E-mail" />
+                    
                         <input type="button" value='Зберегти' onClick={changeUserData} className='auth-btn' />
+                    </div>
+                </div>
+            }
+
+            { isVisibleDeleteModal &&
+                <div className='update_user_modal'>
+                    <div className='auth-block'>
+                        <span className='close_modal' onClick={closeDeleteModal}>&times;</span>
+                        <h3 className='auth-title'>Видалити користувача</h3>
+                    
+                        <input type="button" value='Підтвердити' onClick={confirmDeleting} className='auth-btn' />
                     </div>
                 </div>
             }

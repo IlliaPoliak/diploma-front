@@ -24,15 +24,17 @@ const Header = props => {
                         Історія
                     </NavLink>
 
-                    <NavLink
-                        to="/admin"
-                        className="navbar_link"
-                        activeClassName='router_link_active'
-                    >
-                        Admin
-                    </NavLink>
+                    {props.userRole === 'admin' &&
+                        <NavLink
+                            to="/admin"
+                            className="navbar_link"
+                            activeClassName='router_link_active'
+                        >
+                            Admin
+                        </NavLink>
+                    }
 
-                    <div 
+                    <div
                         className='navbar_link'
                         onClick={props.logout}
                     >

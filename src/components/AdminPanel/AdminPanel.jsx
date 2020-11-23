@@ -3,6 +3,7 @@ import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 import { logout } from '../../store/authReducer'
 import UsersList from './UsersList'
 import UsersHistory from './UsersHistory'
+import { MdArrowBack } from "react-icons/md";
 
 const AdminPanel = props => {
 
@@ -15,25 +16,33 @@ const AdminPanel = props => {
         <div className='admin_container'>
             <aside className='aside'>
                 <div className='admin_links_wrapper'>
-                <div className='admin_menu_title'>
-                    Меню
-                </div>
-                <NavLink
-                    exact
-                    to="/admin/users"
-                    className="aside_link"
-                    activeClassName='aside_link_active'
-                >
-                    Користувачі
+                    <div className='admin_menu_title'>
+                        Меню
+                    </div>
+                    <NavLink
+                        exact
+                        to="/admin/users"
+                        className="aside_link"
+                        activeClassName='aside_link_active'
+                    >
+                        Користувачі
+                        </NavLink>
+                    <NavLink
+                        to="/admin/users/history"
+                        className="aside_link"
+                        activeClassName='aside_link_active'
+                    >
+                        Історії
                     </NavLink>
+
+                </div>
                 <NavLink
-                    to="/admin/users/history"
+                    to="/content"
                     className="aside_link"
                     activeClassName='aside_link_active'
                 >
-                    Історії
+                    <MdArrowBack /> Повернутися
                 </NavLink>
-                </div>
                 <div
                     className='aside_link exit'
                     onClick={props.logout}

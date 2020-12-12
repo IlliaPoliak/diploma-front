@@ -27,3 +27,7 @@ export const validateLink = link => {
           '(\\#[-a-z\\d_]*)?$','i');
         return !!pattern.test(link);
 }
+
+export const isPositiveNumber = (number) => {
+    return number > 0 ? true : false
+}

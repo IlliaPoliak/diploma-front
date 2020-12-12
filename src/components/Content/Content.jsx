@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { logout } from '../../store/authReducer'
 import History from './History'
 import HistoryData from './HistoryData'
+import MathModel from './MathModel'
+import Welcome from './Welcome'
 
 
 const Content = props => {
@@ -20,7 +22,10 @@ const Content = props => {
             
             <main className='main_container'>
                 <Switch>
-                    <Route exact path='/content' render={() => <Calculator />} />
+                    <Redirect exact from="/content" to="/content/welcome" />
+                    <Route exact path='/content/welcome' render={() => <Welcome />} />
+                    <Route exact path='/content/calculator' render={() => <Calculator />} />
+                    <Route exact path='/content/math-model' render={() => <MathModel />} />
                     <Route exact path='/content/history' render={() => <History />} />
                     <Route path='/content/history/:id' render={() => <HistoryData />} />
 

@@ -4,3 +4,5 @@ export const COLORS = {
 }
 
 export const BASE_URL = 'http://diploma-back/storage/app/'
+
+export const tabs = ['Інтегральні характеристики', 'Графіки', 'Масив даних']

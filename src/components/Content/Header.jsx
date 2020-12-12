@@ -10,11 +10,19 @@ const Header = props => {
                 <div className='links_wrapper'>
                     <NavLink
                         exact
-                        to="/content"
+                        to="/content/welcome"
                         className="navbar_link"
                         activeClassName='router_link_active'
                     >
                         Головна
+                    </NavLink>
+                    <NavLink
+                        exact
+                        to="/content/calculator"
+                        className="navbar_link"
+                        activeClassName='router_link_active'
+                    >
+                        Розрахувати
                     </NavLink>
                     <NavLink
                         to="/content/history"
@@ -23,6 +31,13 @@ const Header = props => {
                     >
                         Історія
                     </NavLink>
+                    <NavLink
+                        to="/content/math-model"
+                        className="navbar_link"
+                        activeClassName='router_link_active'
+                    >
+                        Математична модель
+                    </NavLink>
 
                     {props.userRole === 'admin' &&
                         <NavLink
@@ -30,7 +45,7 @@ const Header = props => {
                             className="navbar_link"
                             activeClassName='router_link_active'
                         >
-                            Admin
+                            Панель керування
                         </NavLink>
                     }
 

@@ -22,9 +22,6 @@ const Results = ({ data, length }) => {
 
     return (
         <div className='fields_block'>
-            <div className='block_title'>
-                <h2>Результати</h2>
-            </div>
 
             <div id="table_wrapper">
                 <table className='results_table'>

@@ -40,7 +40,7 @@
 // fup - коэффициент трения в зоне упругого восстановления
 // af - степенной показатель эпюры коэффициента трения
 
-// PprMprNpr - соответственно силамомент и мощность прокатки MНкН*м и кВт соответственно
+// PprMprNpr - соответственно сила, момент и мощность прокатки MН, кН*м и кВт соответственно
 // psrup - давление металла на валки в зоне упругого восстановления МПа
 // tauup - среднее контактное касательное напряжение на упругом участке МПа
 // psr - среднее давление металла на валки МПа
@@ -76,6 +76,14 @@
 // е - допустимая ошибка при определении длины зоны опережения очага деформации
 // ac - вспомогательные переменные (для записи результатов расчета в файл и таблицу на форме)
 // symmap symmam - вспомогательные перемнные при расчете силы и момента прокатки
+
+
+// Dvakx - опір деформації по довжині осередку деформації, МПа
+// Sigmax - осьова напруга, МПа
+// рх - тиск металу на валки по довжині осередку деформації, МПа
+// taux - контактні дотичні напруження, МПа
+// х - геометрична координата, м
+
 
 import '../../utils/round'
 
@@ -446,7 +454,7 @@ export async function getResultsArray(params) {
         roundedPx[i] = Math.round10(px2[i], -5)
         roundedTaux[i] = Math.round10(taux2[i], -5)
 
-        result += roundedX[i] + '\t' + roundedDvakx[i] + '\t' + roundedSigmax[i] + '\t' + roundedPx[i] + '\t' + roundedTaux[i] + '\n'
+        result += roundedX[i] + '\t\t' + roundedDvakx[i] + '\t\t' + roundedSigmax[i] + '\t\t' + roundedPx[i] + '\t\t' + roundedTaux[i] + '\n'
     }
 
     return {
@@ -471,6 +479,6 @@ export async function getResultsArray(params) {
             percentageOfDiscrepancy: Math.round10(100 * Math.abs(Math.log(Sigma1 / Sigma1p)), -5),
             mistake: Math.round10(Delta, -5)
         },
-        array: result
+        array: 'x \t\t dvakx \t\t sigmax \t\t px \t\t taux \n' + result
     }
 } 

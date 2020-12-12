@@ -3,6 +3,7 @@ import { controlFields, inputFields, outputFields } from "./fields"
 import Results from "./Results"
 import Charts from './Chart'
 import { connect } from "react-redux"
+import { tabs } from "../../constants"
 
 
 const HistoryData = props => {
@@ -10,6 +11,8 @@ const HistoryData = props => {
     const inputData = props.historyData.data.inputData
     const resultParams = props.historyData.data.resultParams
     const resultData = props.historyData.data.resultData
+
+    const [activeTab, setActiveTab] = useState(tabs[0])
 
     const [data, setData] = useState({
         n: inputData.n,
@@ -88,53 +91,68 @@ const HistoryData = props => {
                 </div>
             </div>
 
-            <div className='input_data'>
-                <div className='block_title'>
-                    <h2>Інтегральні характеристики напружено-деформованого стану (вихідні дані)</h2>
-                </div>
+                {activeTab &&
+                    <div className='result_wrapper result_page_margin'>
 
-                <div className='fields_container'>
-                    <div className='fields_block'>
-                        {
-                            outputFields.map(field => {
-                                return (
-                                    <label key={field.key} className='field_wrapper'>
-                                        <span>{field.desc}</span>
-                                        <input type="number" name={field.key} value={result.params?.[field.key] || ''} readOnly />
-                                    </label>
-                                )
-                            })
+                        <div className='tabs_container'>
+                            <h2 className='resultTab'>
+                                Результати:
+                        </h2>
+
+                            <div className='tabs_wrapper'>
+                                {tabs.map((tab, i) => (
+                                    <div
+                                        key={i}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={activeTab === tab ? 'tab active_tab' : 'tab'}
+                                    >
+                                        {tab}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {activeTab === tabs[0] &&
+                            <div className='input_data'>
+                                <div className='block_title'>
+                                    <h2>Інтегральні характеристики напружено-деформованого стану</h2>
+                                </div>
+
+                                <div className='fields_container'>
+                                    <div className='fields_block'>
+                                        {outputFields.map(field => {
+                                            return (
+                                                <label key={field.key} className='field_wrapper'>
+                                                    <span>{field.desc}</span>
+                                                    <input type="number" name={field.key} value={result.params?.[field.key] || ''} readOnly />
+                                                </label>
+                                            )
+                                        })}
+                                        {controlFields.map(field => {
+                                            return (
+                                                <label key={field.key} className='field_wrapper'>
+                                                    <span>{field.desc}</span>
+                                                    <input type="number" name={field.key} value={result.params?.[field.key] || ''} readOnly />
+                                                </label>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        {activeTab === tabs[1] &&
+                            <div className='data_wrapper'>
+                                <Charts data={resultData} />
+                            </div>
+                        }
+                        {activeTab === tabs[2] &&
+                            <div className='data_wrapper'>
+                                <Results data={resultData} length={resultData.x2.length} />
+                            </div>
                         }
                     </div>
-                </div>
-            </div>
-
-            <div className='input_data'>
-                <div className='block_title'>
-                    <h2>Контроль</h2>
-                </div>
-
-                <div className='fields_container'>
-                    <div className='fields_block'>
-                        {
-                            controlFields.map(field => {
-                                return (
-                                    <label key={field.key} className='field_wrapper'>
-                                        <span>{field.desc}</span>
-                                        <input type="number" name={field.key} value={result.params?.[field.key] || ''} readOnly />
-                                    </label>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <div style={{ width: '100%' }}>
-                <Charts data={resultData} />
-
-                <Results data={resultData} length={resultData.x2.length} />
-            </div>
+                }
         </div>
     )
 }

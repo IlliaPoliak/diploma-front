@@ -10,7 +10,7 @@ const Charts = ({ data }) => {
 	const chartPxRef = useRef()
 	const chartTauxRef = useRef()
 
-	const config = (array, label, color) => {
+	const config = (array, label, color, title, leftAxis) => {
 
 		return {
 			type: 'line',
@@ -22,34 +22,38 @@ const Charts = ({ data }) => {
 					borderColor: color,
 					data: array,
 					fill: false,
-				}
-				]
+				}]
 			},
 			options: {
 				responsive: true,
+				legend: {
+					display: false
+				},
+				hover: {
+					mode: 'index'
+				},
 				maintainAspectRatio: false,
 				title: {
-					display: false,
+					display: true,
+					text: title
 				},
 				tooltips: {
 					mode: 'index',
 					intersect: true,
 				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
 				scales: {
 					xAxes: [{
 						display: true,
 						scaleLabel: {
-							display: false,
+							display: true,
+							labelString: 'i, крок',
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
-							display: false,
+							display: true,
+							labelString: leftAxis,
 						}
 					}]
 				}
@@ -100,29 +104,35 @@ const Charts = ({ data }) => {
 			},
 			options: {
 				responsive: true,
+				legend: {
+					position: 'bottom',
+					display: true
+				},
 				maintainAspectRatio: false,
 				title: {
-					display: false,
+					display: true,
+					text: 'Основні характеристики процесу прокатки'
 				},
 				tooltips: {
 					mode: 'index',
 					intersect: true,
 				},
 				hover: {
-					mode: 'nearest',
-					intersect: true
+					mode: 'index',
 				},
 				scales: {
 					xAxes: [{
 						display: true,
 						scaleLabel: {
-							display: false,
+							display: true,
+							labelString: 'i, крок',
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
-							display: false,
+							display: true,
+							labelString: 'тиск, МПа',
 						}
 					}]
 				}
@@ -138,11 +148,11 @@ const Charts = ({ data }) => {
 		var canvas_taux = chartTauxRef.current.getContext('2d');
 
 		new Chart(canvas, allDataConfig);
-		new Chart(canvas_x, config(data.x2, 'x', 'orange'));
-		new Chart(canvas_dvarkx, config(data.Dvakx2, 'dvarkx', 'violet'));
-		new Chart(canvas_sigmax, config(data.Sigmax2, 'sigmax', 'blue'));
-		new Chart(canvas_px, config(data.px2, 'px', 'red'));
-		new Chart(canvas_taux, config(data.taux2, 'taux', 'green'));
+		new Chart(canvas_x, config(data.x2, 'x', 'orange', 'Розбиття зони пластичної формозміни (м)', 'x, м'));
+		new Chart(canvas_dvarkx, config(data.Dvakx2, 'dvarkx', 'violet', 'Опір деформації (МПа)', 'dvarkx, МПа'));
+		new Chart(canvas_sigmax, config(data.Sigmax2, 'sigmax', 'blue', 'Осьова напруга (МПа)', 'sigmax, МПа'));
+		new Chart(canvas_px, config(data.px2, 'px', 'red', 'Тиск металу на валки (МПа)', 'px, МПа'));
+		new Chart(canvas_taux, config(data.taux2, 'taux', 'green', 'Контактні дотичні напруження (МПа)', 'taux, МПа'));
 	};
 
 	useEffect(() => {
@@ -151,7 +161,6 @@ const Charts = ({ data }) => {
 
 	return (
 		<div className='canvas_container'>
-			<h2>Графіки</h2>
 			<div className='canvas_wrapper'>
 				<canvas ref={chartRef} id="canvas"></canvas>
 			</div>

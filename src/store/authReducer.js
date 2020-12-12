@@ -87,6 +87,8 @@ export const login = (email, password) => async dispatch => {
             dispatch(getUserInfo())
             console.log('login token', response.token)
             return true
+        } else {
+            dispatch(setError('Сталася помилка'))
         }
         return false
     } catch (e) {

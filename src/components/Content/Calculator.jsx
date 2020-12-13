@@ -16,14 +16,14 @@ const CalculationContainer = props => {
 
     const [mainData, setMainData] = useState({
         n: 100,
-        Hp: 0.001,
-        b: 1.05,
-        h0: 0.00076,
-        h1: 0.0005,
-        f: 0.06,
-        V1: 7.3,
-        Sigma0: 137,
-        Sigma1: 40,
+        Hp: 0.002,
+        b: 1.26,
+        h0: 0.002,
+        h1: 0.00141,
+        f: 0.08,
+        V1: 2.0,
+        Sigma0: 0,
+        Sigma1: 225,
     })
 
     const [specialData, setSpecialData] = useState({

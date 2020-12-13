@@ -29,5 +29,5 @@ export const validateLink = link => {
 }
 
 export const isPositiveNumber = (number) => {
-    return number > 0 ? true : false
+    return number >= 0 ? true : false
 }

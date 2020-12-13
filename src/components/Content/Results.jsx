@@ -21,7 +21,7 @@ const Results = ({ data, length }) => {
     }
 
     return (
-        <div className='fields_block'>
+        <div className='fields_block fields_block_center'>
 
             <div id="table_wrapper">
                 <table className='results_table'>

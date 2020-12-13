@@ -28,7 +28,7 @@ const History = props => {
 
     const confirmDelete = async () => {
         closeDeleteModal()
-        props.deleteHistoryById(historyId)
+        await props.deleteHistoryById(historyId)
         loadData()
     }
     

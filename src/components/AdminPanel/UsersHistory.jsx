@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { Spinner } from '../common/Spinner'
-import { getHistories, getUserHistory, deleteHistoryById, addUserHistory } from '../../store/historyReducer'
-import { AiOutlineDelete } from "react-icons/ai";
+import { getHistories, deleteHistoryById, setHistoryData } from '../../store/historyReducer'
+import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import Pagination from "../common/Pagination/Pagination";
 import { setError, setMessage } from "../../store/appReducer";
+import { Link } from "react-router-dom";
 
 const UsersList = props => {
 
@@ -60,6 +61,9 @@ const UsersList = props => {
                                     <td>{history.title}</td>
                                     <td>{history.comment}</td>
                                     <td className='actions_wrapper'>
+                                        <Link to={'/content/history/' + history.id}>
+                                            <AiOutlineEye className='action' onClick={() => props.setHistoryData(history)} />
+                                        </Link>
                                         <AiOutlineDelete className='action' onClick={() => openDeleteModal(history.id)} />
                                     </td>
                                 </tr>
@@ -96,6 +100,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getHistories,
+    setHistoryData,
     deleteHistoryById,
     setError,
     setMessage

@@ -306,12 +306,13 @@ footer{
 
 .knowledge {
     margin: 50px 200px;
-    font-size: 20px;
+    font-size: 16px;
     color: rgb(18, 57, 88);
 }
 
 .knowledge li{
     margin: 10px 0;
+    font-size: 14px;
 }
 
 .knowledge li span:first-child{
